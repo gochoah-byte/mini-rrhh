@@ -3,6 +3,7 @@ import type { Employee } from '../types';
 interface EmployeeCardProps {
     employee: Employee;
     onSelect?: (employee: Employee) => void;
+    onDelete?: (id: number) => void;
 }
 
 const statusColors: Record<string, string> = {
@@ -17,8 +18,8 @@ const statusLabels: Record<string, string> = {
     on_leave: "Permiso",
 };
 
-function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
-    const { name, position, department, status, avatarUrl } = employee;
+function EmployeeCard({ employee, onSelect, onDelete }: EmployeeCardProps) {
+    const { id, name, position, department, status, avatarUrl } = employee;
 
     return (
         <div
@@ -29,8 +30,40 @@ function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
                 padding: '16px',
                 maxWidth: '300px',
                 cursor: onSelect ? 'pointer' : 'default',
+                position: 'relative',
             }}
         >
+            {onDelete && (
+                <button
+                    type="button"
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        onDelete(id);
+                    }}
+                    style={{
+                        position: 'absolute',
+                        top: '-8px',
+                        right: '-8px',
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: '#dc2626',
+                        border: 'none',
+                        color: 'white',
+                        cursor: 'pointer',
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 0,
+                        lineHeight: 1,
+                    }}
+                    aria-label={`Eliminar a ${name}`}
+                >
+                    ×
+                </button>
+            )}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                     width: '48px', height: '48px', borderRadius: '50%',
@@ -42,7 +75,7 @@ function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
                         : name.charAt(0).toUpperCase()
                     }
                 </div>
-                <div>
+                <div style={{ flex: 1 }}>
                     <h3 style={{ margin: 0, fontSize: '16px' }}>{name}</h3>
                     <p style={{ margin: '2px 0 0', fontSize: '14px', color: '#64748b' }}>{position}</p>
                 </div>
