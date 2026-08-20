@@ -1,68 +1,63 @@
+// src/components/EmployeeCard.tsx
 import type { Employee } from '../types';
 
 interface EmployeeCardProps {
-    employee: Employee;
-    onSelect?: (employee: Employee) => void;
+  employee: Employee;
+  onSelect?: (employee: Employee) => void;
 }
 
-const statusColors: Record<string, string> = {
-    active: "#dcfce7",
-    inactive: "#fee2e2",
-    on_leave: "#fef9c3",
-};
-
-const statusLabels: Record<string, string> = {
-    active: "Activo",
-    inactive: "Inactivo",
-    on_leave: "Permiso",
+const statusConfig = {
+  active: { bg: 'bg-green-100', text: 'text-green-800', label: 'Activo' },
+  inactive: { bg: 'bg-red-100', text: 'text-red-800', label: 'Inactivo' },
+  on_leave: { bg: 'bg-yellow-100', text: 'text-yellow-800', label: 'En permiso' },
 };
 
 function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
-    const { name, position, department, status, avatarUrl } = employee;
+  const { name, position, department, status, avatarUrl } = employee;
+  const statusStyle = statusConfig[status];
 
-    return (
-        <div
-            onClick={() => onSelect?.(employee)}
-            style={{
-                border: '1px solid #e2e8f0',
-                borderRadius: '8px',
-                padding: '16px',
-                maxWidth: '300px',
-                cursor: onSelect ? 'pointer' : 'default',
-            }}
-        >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%',
-                    background: '#dbeafe', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '20px', overflow: 'hidden'
-                }}>
-                    {avatarUrl
-                        ? <img src={avatarUrl} alt={`Avatar de ${name}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        : name.charAt(0).toUpperCase()
-                    }
-                </div>
-                <div>
-                    <h3 style={{ margin: 0, fontSize: '16px' }}>{name}</h3>
-                    <p style={{ margin: '2px 0 0', fontSize: '14px', color: '#64748b' }}>{position}</p>
-                </div>
-            </div>
-            <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{
-                    background: '#dbeafe', color: '#1d4ed8',
-                    padding: '2px 8px', borderRadius: '12px', fontSize: '12px'
-                }}>
-                    {department}
-                </span>
-                <span style={{
-                    background: statusColors[ status ],
-                    padding: '2px 8px', borderRadius: '12px', fontSize: '12px'
-                }}>
-                    {statusLabels[ status ]}
-                </span>
-            </div>
+  return (
+    <div
+      onClick={() => onSelect?.(employee)}
+      className={`
+        bg-white rounded-xl border border-slate-200 p-5 w-full
+        hover:shadow-md hover:border-slate-300
+        transition-all duration-200
+        ${onSelect ? 'cursor-pointer' : ''}
+      `}
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden text-blue-700 font-semibold text-lg flex-shrink-0">
+          {avatarUrl ? (
+            <img
+              src={avatarUrl}
+              alt={`Avatar de ${name}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            name.charAt(0).toUpperCase()
+          )}
         </div>
-    );
+
+        <div className="min-w-0">
+          <h3 className="font-semibold text-slate-900 truncate">{name}</h3>
+          <p className="text-sm text-slate-500 truncate">{position}</p>
+        </div>
+      </div>
+
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium truncate">
+          {department}
+        </span>
+
+        <span
+          className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusStyle.bg} ${statusStyle.text}`}
+        >
+          {statusStyle.label}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export default EmployeeCard;
