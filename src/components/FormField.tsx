@@ -1,17 +1,15 @@
-import type { ReactNode, CSSProperties } from 'react';
+import type { ReactNode } from 'react';
 
 interface FormFieldProps {
   label: string;
   children: ReactNode;
-  style?: CSSProperties;
+  className?: string;
 }
 
-function FormField({ label, children, style }: FormFieldProps) {
+function FormField({ label, children, className = '' }: FormFieldProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', ...style }}>
-      <label style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>
-        {label}
-      </label>
+    <div className={`flex flex-col gap-1 ${className}`}>
+      <label className="text-xs font-semibold text-slate-600">{label}</label>
       {children}
     </div>
   );
