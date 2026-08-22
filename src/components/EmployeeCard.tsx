@@ -20,8 +20,8 @@ function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
     <div
       onClick={() => onSelect?.(employee)}
       className={`
-        bg-white rounded-xl border border-slate-200 p-5 w-full
-        hover:shadow-md hover:border-slate-300
+        bg-white rounded-xl border-2 border-slate-300 p-5 w-full
+        hover:shadow-md hover:border-orange-500
         transition-all duration-200
         ${onSelect ? 'cursor-pointer' : ''}
       `}
