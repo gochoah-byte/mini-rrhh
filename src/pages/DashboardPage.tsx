@@ -1,19 +1,10 @@
 // src/pages/DashboardPage.tsx
 
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { mockEmployees } from '../utils/mockData';
 
 function DashboardPage() {
-  const userName = localStorage.getItem('userName') || 'usuario';
-  const [showWelcome, setShowWelcome] = useState(true);
   const total = mockEmployees.length;
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowWelcome(false), 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const active = mockEmployees.filter(
     (e) => e.status === 'active'
@@ -46,19 +37,6 @@ function DashboardPage() {
 
   return (
     <div className="p-6">
-      {showWelcome && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 p-4"
-        >
-          <div className="w-full max-w-md rounded-xl bg-white p-8 text-center shadow-2xl">
-            <h2 className="text-2xl font-bold text-slate-800">
-              Bienvenido, {userName}
-            </h2>
-          </div>
-        </div>
-      )}
       <h2 className="mb-6 text-2xl font-bold text-slate-800">
         Resumen de tu equipo
       </h2>
