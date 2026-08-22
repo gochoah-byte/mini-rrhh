@@ -98,7 +98,7 @@ function App() {
         path="/"
         element={
           <Navigate
-            to="/dashboard"
+            to="/login"
             replace
           />
         }

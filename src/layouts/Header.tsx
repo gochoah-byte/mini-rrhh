@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import type { User } from "../types";
 
@@ -13,10 +14,17 @@ const navItems = [
 
 function Header({ user, onLogout }: HeaderProps) {
   const { pathname } = useLocation();
+  const [showWelcome, setShowWelcome] = useState(true);
   const displayUser = user ?? {
     name: "Gabriel Ochoa",
     role: "admin",
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowWelcome(false), 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <header className="bg-brand-800 text-white shadow-md">
@@ -43,9 +51,11 @@ function Header({ user, onLogout }: HeaderProps) {
         </nav>
 
         <div className="flex flex-wrap justify-center items-center gap-3 sm:justify-end">
-          <span className="text-sm text-white/80">
-            Bienvenido, {displayUser.name}
-          </span>
+          {showWelcome && (
+            <span className="text-sm text-white/80">
+              Bienvenido, {displayUser.name}
+            </span>
+          )}
           <span className="text-xs bg-blue-500 px-2 py-0.5 rounded-full uppercase font-medium">
             {displayUser.role}
           </span>
