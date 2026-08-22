@@ -21,7 +21,7 @@ function EmployeeCard({ employee, onSelect }: EmployeeCardProps) {
       onClick={() => onSelect?.(employee)}
       className={`
         bg-white rounded-xl border-2 border-slate-300 p-5 w-full
-        hover:shadow-md hover:border-orange-500
+        hover:shadow-md hover:border-teal-500
         transition-all duration-200
         ${onSelect ? 'cursor-pointer' : ''}
       `}
