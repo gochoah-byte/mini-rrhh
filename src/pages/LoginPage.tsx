@@ -15,7 +15,7 @@ function LoginPage() {
     if (email === 'admin@empresa.com' && password === 'admin123') {
       localStorage.setItem('token', 'mock-token-admin');
       localStorage.setItem('userRole', 'admin');
-      localStorage.setItem('userName', 'Roberto Silva');
+      localStorage.setItem('userName', 'Gabriel Ochoa');
       navigate('/dashboard');
     } else if (email === 'rrhh@empresa.com' && password === 'rrhh123') {
       localStorage.setItem('token', 'mock-token-hr');

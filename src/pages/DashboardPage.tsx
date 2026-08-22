@@ -1,10 +1,19 @@
 // src/pages/DashboardPage.tsx
 
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { mockEmployees } from '../utils/mockData';
 
 function DashboardPage() {
+  const userName = localStorage.getItem('userName') || 'usuario';
+  const [showWelcome, setShowWelcome] = useState(true);
   const total = mockEmployees.length;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowWelcome(false), 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const active = mockEmployees.filter(
     (e) => e.status === 'active'
@@ -18,99 +27,68 @@ function DashboardPage() {
     {
       label: 'Total empleados',
       value: total,
-      color: '#dbeafe',
-      textColor: '#1e40af'
+      color: 'bg-blue-100',
+      textColor: 'text-blue-800'
     },
     {
       label: 'Activos',
       value: active,
-      color: '#dcfce7',
-      textColor: '#166534'
+      color: 'bg-green-100',
+      textColor: 'text-green-800'
     },
     {
       label: 'En permiso',
       value: onLeave,
-      color: '#fef9c3',
-      textColor: '#854d0e'
+      color: 'bg-yellow-100',
+      textColor: 'text-yellow-800'
     }
   ];
 
   return (
-    <div style={{ padding: '24px' }}>
-      
-      <h2
-        style={{
-          color: '#1e293b',
-          marginBottom: '24px'
-        }}
-      >
-        Dashboard
+    <div className="p-6">
+      {showWelcome && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 p-4"
+        >
+          <div className="w-full max-w-md rounded-xl bg-white p-8 text-center shadow-2xl">
+            <h2 className="text-2xl font-bold text-slate-800">
+              Bienvenido, {userName}
+            </h2>
+          </div>
+        </div>
+      )}
+      <h2 className="mb-6 text-2xl font-bold text-slate-800">
+        Resumen de tu equipo
       </h2>
 
-      <div
-        style={{
-          display: 'flex',
-          gap: '16px',
-          marginBottom: '32px',
-          flexWrap: 'wrap'
-        }}
-      >
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            style={{
-              background: stat.color,
-              padding: '24px',
-              borderRadius: '12px',
-              minWidth: '160px',
-              flex: 1
-            }}
+            className={`min-w-[160px] flex-1 rounded-xl p-6 ${stat.color}
+                        transition-shadow duration-200 hover:shadow-lg`}
           >
-            <p
-              style={{
-                margin: '0 0 4px',
-                color: stat.textColor,
-                fontSize: '14px'
-              }}
-            >
+            <p className={`mb-1 text-sm ${stat.textColor}`}>
               {stat.label}
             </p>
-
-            <p
-              style={{
-                margin: 0,
-                fontSize: '36px',
-                fontWeight: 700,
-                color: stat.textColor
-              }}
-            >
+            <p className={`text-4xl font-bold ${stat.textColor}`}>
               {stat.value}
             </p>
           </div>
         ))}
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          gap: '12px'
-        }}
-      >
+      <div className="flex gap-3">
         <Link
           to="/empleados"
-          style={{
-            padding: '10px 20px',
-            background: '#1e40af',
-            color: 'white',
-            borderRadius: '6px',
-            textDecoration: 'none',
-            fontSize: '14px'
-          }}
+          className="rounded-md bg-brand-800 px-5 py-2.5 text-sm text-white
+                     transition-colors hover:bg-brand-700"
         >
-          Ver empleados →
+          Ver empleados
         </Link>
       </div>
-
     </div>
   );
 }
