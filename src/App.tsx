@@ -14,30 +14,15 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import EmployeesPage from './pages/EmployeesPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import type { User } from './types';
+import { useAuthStore } from './store/authStore';
 
 // Layout para páginas autenticadas
 function AppLayout({ children }: { children: ReactNode }) {
+  const { user, logout } = useAuthStore();
   const navigate = useNavigate();
 
-  const role = localStorage.getItem('userRole') as User['role'] | null;
-  const name = localStorage.getItem('userName') || '';
-
-  const user = role
-    ? ({
-        id: 1,
-        name,
-        email: '',
-        role,
-        token: ''
-      } as User)
-    : undefined;
-
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName');
-
+    logout();
     navigate('/login');
   };
 
@@ -48,10 +33,7 @@ function AppLayout({ children }: { children: ReactNode }) {
         background: '#f8fafc'
       }}
     >
-      <Header
-        user={user}
-        onLogout={handleLogout}
-      />
+      <Header user={user ?? undefined} onLogout={handleLogout} />
 
       <main>{children}</main>
     </div>
@@ -98,7 +80,7 @@ function App() {
         path="/"
         element={
           <Navigate
-            to="/login"
+            to="/dashboard"
             replace
           />
         }

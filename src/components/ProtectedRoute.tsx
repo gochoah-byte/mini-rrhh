@@ -1,10 +1,10 @@
-// src/components/ProtectedRoute.tsx
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 function ProtectedRoute() {
-  const token = localStorage.getItem('token');
+  const { isAuthenticated } = useAuthStore();
 
-  if (!token) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
