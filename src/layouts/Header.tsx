@@ -51,11 +51,10 @@ function Header({ user, onLogout }: HeaderProps) {
         </nav>
 
         <div className="flex flex-wrap justify-center items-center gap-3 sm:justify-end">
-          {showWelcome && (
-            <span className="text-sm text-white/80">
-              Bienvenido, {displayUser.name}
-            </span>
-          )}
+          <span className="text-sm text-white/80">
+            {showWelcome && "Bienvenido, "}
+            {displayUser.name}
+          </span>
           <span className="text-xs bg-blue-500 px-2 py-0.5 rounded-full uppercase font-medium">
             {displayUser.role}
           </span>
