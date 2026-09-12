@@ -1,20 +1,15 @@
 // src/App.tsx
 
-import type { ReactNode } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-  Link,
-  useNavigate
-} from 'react-router-dom';
+import type { ReactNode } from "react";
+import { Routes, Route, Navigate, Link, useNavigate } from "react-router-dom";
 
-import Header from './layouts/Header';
-import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import EmployeesPage from './pages/EmployeesPage';
-import ProtectedRoute from './components/ProtectedRoute';
-import { useAuthStore } from './store/authStore';
+import Header from "./layouts/Header";
+import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/DashboardPage";
+import EmployeesPage from "./pages/EmployeesPage";
+import EmployeeDetailPage from "./pages/EmployeeDetailPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuthStore } from "./store/authStore";
 
 // Layout para páginas autenticadas
 function AppLayout({ children }: { children: ReactNode }) {
@@ -23,14 +18,14 @@ function AppLayout({ children }: { children: ReactNode }) {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <div
       style={{
-        minHeight: '100vh',
-        background: '#f8fafc'
+        minHeight: "100vh",
+        background: "#f8fafc",
       }}
     >
       <Header user={user ?? undefined} onLogout={handleLogout} />
@@ -43,16 +38,11 @@ function AppLayout({ children }: { children: ReactNode }) {
 function App() {
   return (
     <Routes>
-
       {/* Ruta pública */}
-      <Route
-        path="/login"
-        element={<LoginPage />}
-      />
+      <Route path="/login" element={<LoginPage />} />
 
       {/* Rutas protegidas */}
       <Route element={<ProtectedRoute />}>
-
         {/* Dashboard */}
         <Route
           path="/dashboard"
@@ -73,18 +63,18 @@ function App() {
           }
         />
 
+        <Route
+          path="/empleados/:id"
+          element={
+            <AppLayout>
+              <EmployeeDetailPage />
+            </AppLayout>
+          }
+        />
       </Route>
 
       {/* Redirigir página principal */}
-      <Route
-        path="/"
-        element={
-          <Navigate
-            to="/dashboard"
-            replace
-          />
-        }
-      />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
       {/* Página 404 */}
       <Route
@@ -92,23 +82,18 @@ function App() {
         element={
           <div
             style={{
-              minHeight: '100vh',
-              background: '#f8fafc',
-              textAlign: 'center',
-              padding: '80px'
+              minHeight: "100vh",
+              background: "#f8fafc",
+              textAlign: "center",
+              padding: "80px",
             }}
           >
-            <h2 style={{ color: '#1e293b' }}>
-              404 — Página no encontrada
-            </h2>
+            <h2 style={{ color: "#1e293b" }}>404 — Página no encontrada</h2>
 
-            <Link to="/dashboard">
-              Volver al inicio
-            </Link>
+            <Link to="/dashboard">Volver al inicio</Link>
           </div>
         }
       />
-
     </Routes>
   );
 }
