@@ -1,6 +1,18 @@
 {
   "employees": [
     {
+      "id": 1,
+      "name": "Ana García",
+      "email": "ana.garcia@empresa.com",
+      "position": "Desarrolladora Frontend",
+      "department": "Tecnología",
+      "salary": 8500,
+      "hireDate": "2022-03-15",
+      "status": "active",
+      "role": "employee",
+      "avatarUrl": "https://i.pravatar.cc/64?img=1"
+    },
+    {
       "id": 2,
       "name": "Carlos Martínez",
       "email": "carlos.martinez@empresa.com",
@@ -35,23 +47,36 @@
     },
     {
       "id": 5,
-      "name": "Lucía Ramírez",
-      "email": "lucia.ramirez@empresa.com",
-      "position": "Analista de Operaciones",
-      "department": "Operaciones",
-      "salary": 7800,
-      "hireDate": "2023-02-01",
-      "status": "inactive",
-      "role": "employee"
+      "name": "Sofía Ramírez",
+      "email": "sofia.ramirez@empresa.com",
+      "position": "Desarrolladora Backend",
+      "department": "Tecnología",
+      "salary": 10000,
+      "hireDate": "2023-02-14",
+      "status": "active",
+      "role": "employee",
+      "avatarUrl": "https://i.pravatar.cc/64?img=2"
     },
     {
       "id": 6,
-      "name": "Diego Herrera",
-      "email": "diego.herrera@empresa.com",
-      "position": "Ejecutivo de Ventas",
+      "name": "Gabriel Ochoa",
+      "email": "gabriel.ochoa@empresa.com",
+      "position": "Gerente de Ventas",
       "department": "Ventas",
-      "salary": 8200,
-      "hireDate": "2022-11-14",
+      "salary": 9250,
+      "hireDate": "2019-08-01",
+      "status": "inactive",
+      "role": "employee",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&q=80"
+    },
+    {
+      "id": 7,
+      "name": "Luis Hernández",
+      "email": "luis.hernandez@empresa.com",
+      "position": "Diseñador UX/UI",
+      "department": "Tecnología",
+      "salary": 9000,
+      "hireDate": "2022-08-10",
       "status": "active",
       "role": "employee"
     }
